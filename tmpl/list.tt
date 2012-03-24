@@ -1,0 +1,11 @@
+[% WRAPPER 'include/layout.tt' %]
+<h1>files</h1>
+<table class="table table-striped">
+[% FOREACH file IN files %]
+<tr>
+  <td>[% file.path %]</td>
+</tr>
+[% END %]
+</table>
+[% END #IF !user %]
+[% END %]

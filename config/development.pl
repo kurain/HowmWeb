@@ -7,13 +7,12 @@ if ( -d '/home/dotcloud/') {
 } else {
     $dbpath = File::Spec->catfile($basedir, 'db', 'development.db');
 }
+my $dropbox = require File::Spec->catfile($basedir, 'config', 'dropbox.pl');
 +{
     'DBI' => [
-        "dbi:SQLite:dbname=$dbpath",
-        '',
-        '',
-        +{
-            sqlite_unicode => 1,
-        }
+        "dbi:mysql:dbname=howmweb",
+        'nobody',
+        'nobody',
     ],
+    'Dropbox' => $dropbox,
 };

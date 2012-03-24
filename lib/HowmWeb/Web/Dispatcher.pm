@@ -4,15 +4,27 @@ use warnings;
 use utf8;
 use Amon2::Web::Dispatcher::Lite;
 
+use HowmWeb::Web::Index;
+use HowmWeb::Web::Dropbox;
+
 any '/' => sub {
     my ($c) = @_;
-    $c->render('index.tt');
+    HowmWeb::Web::Index->default($c);
 };
 
-post '/account/logout' => sub {
+get '/callback' => sub {
     my ($c) = @_;
-    $c->session->expire();
-    $c->redirect('/');
+    HowmWeb::Web::Index->callback($c);
 };
 
+post '/logout' => sub {
+    my ($c) = @_;
+    HowmWeb::Web::Index->logout($c);
+};
+
+
+get '/refresh' => sub {
+    my ($c) = @_;
+    HowmWeb::Web::Dropbox->refresh($c);
+};
 1;
